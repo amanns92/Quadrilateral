@@ -17,5 +17,35 @@ namespace Library.NUnit
             Assert.AreEqual(11876156.017462872d, distance);
         }
 
+        [Test]
+        public void ValidatePositionOk()
+        {
+            Assert.IsTrue(PolygonValidationHelper.IsValidPosition(new Position(180, 180, 50)));
+        }
+
+        [Test]
+        public void ValidateToLonwLatitude()
+        {
+            Assert.IsFalse(PolygonValidationHelper.IsValidPosition(new Position(-181, 140, 50)));
+        }
+
+        [Test]
+        public void ValidateToHighLatitude()
+        {
+            Assert.IsFalse(PolygonValidationHelper.IsValidPosition(new Position(181, 140, 50)));
+        }
+
+        [Test]
+        public void ValidateToLonwLongitude()
+        {
+            Assert.IsFalse(PolygonValidationHelper.IsValidPosition(new Position(120, -181, 50)));
+        }
+
+        [Test]
+        public void ValidateToHighLongitude()
+        {
+            Assert.IsFalse(PolygonValidationHelper.IsValidPosition(new Position(120, 181, 50)));
+        }
+
     }
 }
