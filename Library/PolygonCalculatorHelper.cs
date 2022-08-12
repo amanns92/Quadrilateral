@@ -1,51 +1,25 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.CompilerServices;
+
 namespace Library
 {
     public static class PolygonCalculatorHelper
     {
-        public static double CalculateDistance(Position p1, Position p2)
+        public static double CalculateDistance(Position pOne, Position pTwo)
         {
-            return delta degrees* pi / 180.0 * 6378137;
-        }
+            //convert into Vector
+            var xOne = (Math.Cos(pOne.Latitude)) * (Math.Cos(pOne.Longitude));
+            var yOne = (Math.Cos(pOne.Latitude)) * (Math.Sin(pOne.Longitude));
+            var zOne = (Math.Sin(pOne.Latitude));
 
-        public static bool ValidateModel(Polygon polygon)
-        {
-            //check if Position have valid values
-            if(!IsValidPosition(polygon.PositionOne)
-               || !IsValidPosition(polygon.PositionTwo)
-               || !IsValidPosition(polygon.PositionThree)
-               || !IsValidPosition(polygon.PositionFour))
-            {
-                return false;
-            }
+            var xTwo = (Math.Cos(pTwo.Latitude)) * (Math.Cos(pTwo.Longitude));
+            var yTwo = (Math.Cos(pTwo.Latitude)) * (Math.Sin(pTwo.Longitude));
+            var zTwo = (Math.Sin(pTwo.Latitude));
 
-            //Compare Position 
-            if (polygon.PositionOne.Equals(polygon.PositionTwo)
-                || polygon.PositionOne.Equals(polygon.PositionThree)
-                || polygon.PositionOne.Equals(polygon.PositionFour)
-                || polygon.PositionTwo.Equals(polygon.PositionThree)
-                || polygon.PositionTwo.Equals(polygon.PositionFour)
-                || polygon.PositionThree.Equals(polygon.PositionFour))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public static bool IsValidPosition(Position polygon)
-        {
-            if(!(polygon.Longitude <= 180 && polygon.Longitude >= -180))
-            {
-                //Longitude is not correct
-                return false;
-            }
-            if (!(polygon.Latitude <= 180 && polygon.Latitude >= -180))
-            {
-                //Latitude is not correct
-                return false;
-            }
-            return true;
+            //MeanRadius * Acos(xa * xb + ya * yb + za * zb);
+            var meanRadius = 6.371 * Math.Pow(10, 6); //MeanRadius Earth
+            return meanRadius * Math.Acos(xOne * xTwo + yOne * yTwo + zOne * zTwo);
         }
     }
 }
