@@ -103,7 +103,7 @@ namespace Application
 
         public static void ValidatePolygonAndPrintDistance(Polygon polygon)
         {
-            if (!PolygonCalculatorHelper.ValidateModel(polygon))
+            if (!PolygonValidationHelper.ValidateModel(polygon))
             {
                 Console.WriteLine("The Model is not Valid");
             }

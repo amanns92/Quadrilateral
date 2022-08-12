@@ -1,17 +1,12 @@
 ﻿using System;
 namespace Library
 {
-    public static class PolygonCalculatorHelper
+    public static class PolygonValidationHelper
     {
-        public static double CalculateDistance(Position p1, Position p2)
-        {
-            return delta degrees* pi / 180.0 * 6378137;
-        }
-
         public static bool ValidateModel(Polygon polygon)
         {
             //check if Position have valid values
-            if(!IsValidPosition(polygon.PositionOne)
+            if (!IsValidPosition(polygon.PositionOne)
                || !IsValidPosition(polygon.PositionTwo)
                || !IsValidPosition(polygon.PositionThree)
                || !IsValidPosition(polygon.PositionFour))
@@ -35,7 +30,7 @@ namespace Library
 
         public static bool IsValidPosition(Position polygon)
         {
-            if(!(polygon.Longitude <= 180 && polygon.Longitude >= -180))
+            if (!(polygon.Longitude <= 180 && polygon.Longitude >= -180))
             {
                 //Longitude is not correct
                 return false;
