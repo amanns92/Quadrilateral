@@ -33,5 +33,20 @@
             get;
         }
 
+        public override bool Equals(object obj)
+        {
+            // If the passed object is null
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is Position))
+            {
+                return false;
+            }
+            return (this.Longitude == ((Position)obj).Longitude)
+                && (this.Latitude == ((Position)obj).Latitude);
+        }
+
     }
 }
