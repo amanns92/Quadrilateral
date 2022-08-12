@@ -14,6 +14,12 @@ namespace Library
             //TODO: implement
             return false;
         }
+
+        public static bool IsValidPosition(Position polygon)
+        {
+            //TODO: implement
+            return false;
+        }
     }
 }
 

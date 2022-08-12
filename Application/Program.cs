@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Library;
 
 namespace Application
@@ -7,7 +8,7 @@ namespace Application
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Please enter your Poyligon!");
+            Console.WriteLine("Please enter your Poyligon! Example input 1.5");
 
             Console.WriteLine("Enter Values for Position One!");
             var positionOne = readPosition();
@@ -41,7 +42,7 @@ namespace Application
                 return;
             }
 
-            
+            ValidatePolygonAndPrintDistance(new Polygon(positionOne, positionTwo, positionThree, positionFour));
         }
 
         public static Position readPosition()
@@ -54,10 +55,13 @@ namespace Application
                 Console.WriteLine("Could not read the Longitude.");
                 Console.WriteLine("You want to try to enter this Position again? y/n");
                 Console.WriteLine("No valid input will asume no.");
-                if(Console.ReadKey().ToString().ToUpper().Equals('Y'))
+                var yesOrNo = Console.ReadKey().Key.ToString().ToUpper();
+                Console.WriteLine();
+                if (yesOrNo.Equals("Y"))
                 {
                     return readPosition();
                 }
+
                 return null;
             }
 
@@ -69,7 +73,9 @@ namespace Application
                 Console.WriteLine("Could not read the Longitude.");
                 Console.WriteLine("You want to try to enter this Position again? y/n");
                 Console.WriteLine("No valid input will asume no.");
-                if (Console.ReadKey().ToString().ToUpper().Equals('Y'))
+                var yesOrNo = Console.ReadKey().Key.ToString().ToUpper();
+                Console.WriteLine();
+                if (yesOrNo.Equals("Y"))
                 {
                     return readPosition();
                 }
@@ -84,13 +90,28 @@ namespace Application
                 Console.WriteLine("Could not read the Height.");
                 Console.WriteLine("You want to try to enter this Position again? y/n");
                 Console.WriteLine("No valid input will asume no.");
-                if (Console.ReadKey().ToString().ToUpper().Equals('Y'))
+                var yesOrNo = Console.ReadKey().Key.ToString().ToUpper();
+                Console.WriteLine();
+                if (yesOrNo.Equals("Y"))
                 {
                     return readPosition();
                 }
                 return null;
             }
             return new Position(latitude, longitude, height);
+        }
+
+        public static void ValidatePolygonAndPrintDistance(Polygon polygon)
+        {
+            if (!PolygonCalculatorHelper.ValidateModel(polygon))
+            {
+                Console.WriteLine("The Model is not Valid");
+            }
+
+            Console.WriteLine("Distance from Position one to Position two: " + PolygonCalculatorHelper.CalculateDistance(polygon.PositionOne, polygon.PositionTwo));
+            Console.WriteLine("Distance from Position two to Position three: " + PolygonCalculatorHelper.CalculateDistance(polygon.PositionTwo, polygon.PositionThree));
+            Console.WriteLine("Distance from Position three to Position four: " + PolygonCalculatorHelper.CalculateDistance(polygon.PositionThree, polygon.PositionFour));
+            Console.WriteLine("Distance from Position four to Position one: " + PolygonCalculatorHelper.CalculateDistance(polygon.PositionFour, polygon.PositionOne));
         }
     }
 }
