@@ -18,7 +18,7 @@ namespace Library.NUnit
         }
 
         [Test]
-        public void ValidatePositionOk()
+        public void ValidateValidPosition()
         {
             Assert.IsTrue(PolygonValidationHelper.IsValidPosition(new Position(180, 180, 50)));
         }
@@ -45,6 +45,24 @@ namespace Library.NUnit
         public void ValidateToHighLongitude()
         {
             Assert.IsFalse(PolygonValidationHelper.IsValidPosition(new Position(120, 181, 50)));
+        }
+
+        [Test]
+        public void ValidateValidPoyligon()
+        {
+            Assert.IsTrue(PolygonValidationHelper.ValidateModel(new Polygon(pOne, pTwo, pThree, pFour)));
+        }
+
+        [Test]
+        public void ValidatePolygonTwoPositionsAreEqual()
+        {
+            Assert.IsFalse(PolygonValidationHelper.ValidateModel(new Polygon(pOne, pOne, pThree, pFour)));
+        }
+
+        [Test]
+        public void ValidatePolygonPositionInvalidDegree()
+        {
+            Assert.IsFalse(PolygonValidationHelper.ValidateModel(new Polygon(pOne, new Position(-181, 140, 50), pThree, pFour)));
         }
 
     }
